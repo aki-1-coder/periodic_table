@@ -20,9 +20,27 @@ find_element() {
     fi
 }
 
-# Check if an argument is provided
+# Function to check if input is a valid number
+is_number() {
+    if [[ "$1" =~ ^[0-9]+$ ]]; then
+        return 0 # Valid number
+    else
+        return 1 # Invalid number
+    fi
+}
+
+# Ask the user for input if no argument is provided
 if [ -z "$1" ]; then
-    echo "Please provide an element as an argument."
+    echo "Please provide an element as an argument or input the element you want to search for."
+    echo "You can search by Atomic Number, Name, or Symbol."
+    read -p "Enter atomic number, name, or symbol: " user_input
+
+    # Check if the input is a number
+    if is_number "$user_input"; then
+        find_element "$user_input"
+    else
+        find_element "$user_input"
+    fi
 else
     find_element "$1"
 fi
